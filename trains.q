@@ -33,5 +33,7 @@ gs:{
 
 gettrains:{`cron insert (.z.P+"v"$cyc;gettrains;`);gs'[key st]}
 
-wd:{.Q.dpft[`:hdb;.z.D;`name;`trains];`cron insert((1+.z.D)+23:59:59.000;wd;`);}
+wd:{`cron insert((1+.z.D)+23:59:59.000;wd;`);.Q.dpft[`:hdb;.z.D;`name;`trains];}
 
+`cron insert (.z.P+"v"$cyc;gettrains;`)
+`cron insert((.z.D)+23:59:59.000;wd;`)
