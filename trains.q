@@ -31,9 +31,9 @@ gs:{
 
 .z.ts:{pi:exec i from cron where time<.z.P;if[count pi;r:exec action,args from cron where i in pi;delete from `cron where i in pi;({value[x]. (),y}.)'[flip value r]];}
 
-gettrains:{`cron insert (.z.P+"v"$cyc;gettrains;`);gs'[key st]}
+gettrains:{`cron insert (.z.P+"v"$cyc;`gettrains;`);gs'[key st]}
 
-wd:{`cron insert((1+.z.D)+23:59:59.000;wd;`);.Q.dpft[`:hdb;.z.D;`name;`trains];}
+wd:{`cron insert((1+.z.D)+23:59:59.000;`wd;`);.Q.dpft[`:hdb;.z.D;`name;`trains];}
 
-`cron insert (.z.P+"v"$cyc;gettrains;`)
-`cron insert((.z.D)+23:59:59.000;wd;`)
+`cron insert (.z.P+"v"$cyc;`gettrains;`)
+`cron insert((.z.D)+23:59:59.000;`wd;`)
