@@ -14,19 +14,19 @@ gs:{
   if[not count frs;:()];
   r:.Q.id frs;
   o:update 
-    name:`$fr`$"@name" 
+    name:`$fr`$"@name", 
     time:(first sum("D V";10 1 8)0:enlist fr[`$"@Timestamp"])
     from select 
       headcode:`$Headcode,
       uid:"I"$Uid,stype:`$ServiceType[;`$"@Type"],
-      depart:sum ("DV";8 6)0:DepartTime[;`$"@timestamp"],
-      arrive:sum ("DV";8 6)0:DepartTime[;`$"@timestamp"],
+      depart:{@[count[x]#0Np;w;:;]sum ("DV";8 6)0:x w:where 14=count each x}ArriveTime[;`$"@timestamp"],
+      arrive:{@[count[x]#0Np;w;:;]sum ("DV";8 6)0:x w:where 14=count each x}DepartTime[;`$"@timestamp"],
       exparrive:`$ExpectedArriveTime[;`$"@time"]except\:" ",
       expdepart:`$ExpectedDepartTime[;`$"@time"]except\:" ",
       status:`$ServiceStatus[;`$"@Status"]except\:" ",
       delay:"I"$Delay[;`$"@Minutes"] 
     from r;
-  `trains insert o;
+  `trains insert cols[trains]#o;
   }
 
 .z.ts:{pi:exec i from cron where time<.z.P;if[count pi;r:exec action,args from cron where i in pi;delete from `cron where i in pi;({value[x]. (),y}.)'[flip value r]];}
